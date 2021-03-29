@@ -32,6 +32,7 @@ a2 = Adventure.create(title: 'Skydiving', photo: 'https://www.skydive.com.mx/ima
 # a3 user is Rachel
 a3 = Adventure.create(title: 'Whitewater Rafting', photo: 'https://i.pinimg.com/originals/c7/34/b1/c734b166cd924a8122915ae5599b7af4.jpg', location: 'Australia', hashtags: '#rafting, #australia', description: "What a rush!", likes: 0) 
 
+# 
 c1 = Comment.create(comments: 'So cool! Rafting is definitely in my top 5!', adventure: a3, user: u4)
 c2 = Comment.create(comments: 'The water is so blue. I love it! Skydiving is a hard pass though, I would pass out.', adventure: a2, user: u3)
 c3 = Comment.create(comments: 'Looking good Liam! Neat trick!', adventure: a2, user: u2)

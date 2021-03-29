@@ -42,3 +42,75 @@ FOREIGN KEY ("adventure_id")
   [1m[36mComment Load (4.8ms)[0m  [1m[34mSELECT "comments".* FROM "comments"[0m
   [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
   [1m[36mComment Load (0.7ms)[0m  [1m[34mSELECT "comments".* FROM "comments"[0m
+  [1m[35m (384.2ms)[0m  [1m[35mCREATE DATABASE "pyxel_development" ENCODING = 'unicode'[0m
+  [1m[35m (276.3ms)[0m  [1m[35mCREATE DATABASE "pyxel_test" ENCODING = 'unicode'[0m
+  [1m[35m (40.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (44.7ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT pg_try_advisory_lock(1071527517331241880)[0m
+  [1m[35m (2.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateUsers (20210328184958)
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (154.7ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "name" character varying, "hometown" character varying, "bio" text, "age" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (2.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210328184958"]]
+  [1m[36mTRANSACTION (38.1ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateAdventures (20210328185410)
+  [1m[36mTRANSACTION (17.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (10.8ms)[0m  [1m[35mCREATE TABLE "adventures" ("id" bigserial primary key, "title" character varying, "photo" character varying, "location" character varying, "hashtags" character varying, "description" text, "likes" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210328185410"]]
+  [1m[36mTRANSACTION (1.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateComments (20210328185607)
+  [1m[36mTRANSACTION (47.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (73.9ms)[0m  [1m[35mCREATE TABLE "comments" ("id" bigserial primary key, "comments" text, "user_id" bigint NOT NULL, "adventure_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_03de2dc08c"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_fd6671657d"
+FOREIGN KEY ("adventure_id")
+  REFERENCES "adventures" ("id")
+)[0m
+  [1m[35m (2.4ms)[0m  [1m[35mCREATE INDEX "index_comments_on_user_id" ON "comments" ("user_id")[0m
+  [1m[35m (5.3ms)[0m  [1m[35mCREATE INDEX "index_comments_on_adventure_id" ON "comments" ("adventure_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210328185607"]]
+  [1m[36mTRANSACTION (56.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.9ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (178.9ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2021-03-29 18:02:06.423744"], ["updated_at", "2021-03-29 18:02:06.423744"]]
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (2.0ms)[0m  [1m[34mSELECT pg_advisory_unlock(1071527517331241880)[0m
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (4.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mComment Load (43.4ms)[0m  [1m[34mSELECT "comments".* FROM "comments"[0m
+  [1m[36mAdventure Load (27.4ms)[0m  [1m[34mSELECT "adventures".* FROM "adventures"[0m
+  [1m[36mUser Load (33.5ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Create (1.1ms)[0m  [1m[32mINSERT INTO "users" ("name", "hometown", "bio", "age", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Rachel"], ["hometown", "NYC, New York"], ["bio", "I'm a high-powered attorney with a flair for adrenaline pumping adventures."], ["age", 35], ["created_at", "2021-03-29 18:02:28.937968"], ["updated_at", "2021-03-29 18:02:28.937968"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Create (2.4ms)[0m  [1m[32mINSERT INTO "users" ("name", "hometown", "bio", "age", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Tom"], ["hometown", "Columbus, Ohio"], ["bio", "Half accountant, half thrill seeker."], ["age", 40], ["created_at", "2021-03-29 18:02:28.945605"], ["updated_at", "2021-03-29 18:02:28.945605"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "hometown", "bio", "age", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Alicia"], ["hometown", "Nashville, Tennessee"], ["bio", "Recent college grad, looking to leave behind my small town living and explore new opportunities."], ["age", 22], ["created_at", "2021-03-29 18:02:28.952395"], ["updated_at", "2021-03-29 18:02:28.952395"]]
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Create (4.4ms)[0m  [1m[32mINSERT INTO "users" ("name", "hometown", "bio", "age", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "William"], ["hometown", "Denver, Colorado"], ["bio", "Retired school teacher of 40 years. Ready to start this new chapter. It's never too late to go for your dreams!"], ["age", 63], ["created_at", "2021-03-29 18:02:28.957865"], ["updated_at", "2021-03-29 18:02:28.957865"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("name", "hometown", "bio", "age", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Liam"], ["hometown", "Seattle, Washington"], ["bio", "Software Engineer lucky enough to live a nomadic, daring life"], ["age", 29], ["created_at", "2021-03-29 18:02:28.968936"], ["updated_at", "2021-03-29 18:02:28.968936"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mAdventure Create (0.5ms)[0m  [1m[32mINSERT INTO "adventures" ("title", "photo", "location", "hashtags", "description", "likes", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["title", "Hiking"], ["photo", "https://xdaysiny.com/wp-content/uploads/2017/07/Hiking-Diamond-Head-Honolulu-Oahu-Hawaii.jpg"], ["location", "Hawaii"], ["hashtags", "#hiking, #hawaii"], ["description", "The scenery is so beautiful, I'm deathly afraid of heights though. Yikes."], ["likes", 0], ["created_at", "2021-03-29 18:02:28.983938"], ["updated_at", "2021-03-29 18:02:28.983938"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mAdventure Create (0.3ms)[0m  [1m[32mINSERT INTO "adventures" ("title", "photo", "location", "hashtags", "description", "likes", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["title", "Skydiving"], ["photo", "https://www.skydive.com.mx/images/gallery/4.jpg"], ["location", "Mexico"], ["hashtags", "#skydiving, #mexico"], ["description", "Skydiving in Playa Del Carmen was crazy. I even tried a little stunt."], ["likes", 0], ["created_at", "2021-03-29 18:02:28.988696"], ["updated_at", "2021-03-29 18:02:28.988696"]]
+  [1m[36mTRANSACTION (2.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mAdventure Create (0.3ms)[0m  [1m[32mINSERT INTO "adventures" ("title", "photo", "location", "hashtags", "description", "likes", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["title", "Whitewater Rafting"], ["photo", "https://i.pinimg.com/originals/c7/34/b1/c734b166cd924a8122915ae5599b7af4.jpg"], ["location", "Australia"], ["hashtags", "#rafting, #australia"], ["description", "What a rush!"], ["likes", 0], ["created_at", "2021-03-29 18:02:28.997776"], ["updated_at", "2021-03-29 18:02:28.997776"]]
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mComment Create (148.0ms)[0m  [1m[32mINSERT INTO "comments" ("comments", "user_id", "adventure_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["comments", "So cool! Rafting is definitely in my top 5!"], ["user_id", 4], ["adventure_id", 3], ["created_at", "2021-03-29 18:02:29.059333"], ["updated_at", "2021-03-29 18:02:29.059333"]]
+  [1m[36mTRANSACTION (15.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mComment Create (1.1ms)[0m  [1m[32mINSERT INTO "comments" ("comments", "user_id", "adventure_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["comments", "The water is so blue. I love it! Skydiving is a hard pass though, I would pass out."], ["user_id", 3], ["adventure_id", 2], ["created_at", "2021-03-29 18:02:29.230017"], ["updated_at", "2021-03-29 18:02:29.230017"]]
+  [1m[36mTRANSACTION (2.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (10.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mComment Create (2.2ms)[0m  [1m[32mINSERT INTO "comments" ("comments", "user_id", "adventure_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["comments", "Looking good Liam! Neat trick!"], ["user_id", 2], ["adventure_id", 2], ["created_at", "2021-03-29 18:02:29.241126"], ["updated_at", "2021-03-29 18:02:29.241126"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m

@@ -10,12 +10,13 @@ class UsersController < ApplicationController
     end
 
     def create 
-        user = User.create(user_params)
+        user = User.find_or_create_by(user_params)
         render json: user
     end
 
+    private
     def user_params
-        params.require(:user).permit(:name, :hometown, :bio, :age, :hashtags, )
+        params.require(:user).permit(:name, :hometown, :bio, :age)
     end
 
 end

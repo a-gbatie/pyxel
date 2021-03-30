@@ -1,7 +1,7 @@
 class AdventuresController < ApplicationController
     def index
         adventures = Adventure.all
-        render json: adventures
+        render json: adventures, include: [:comments]
     end
 
     def show
@@ -16,7 +16,8 @@ class AdventuresController < ApplicationController
 
     def update
         adventure = Adventure.find(params[:id])
-        adventure.update(description: params[:description])
+        adventure.update(description: (params[:description]))
+        adventure.update(likes: (params[:likes]))
         render json: adventure
     end
 
@@ -26,6 +27,7 @@ class AdventuresController < ApplicationController
         render json: adventure
     end
 
+    private
     def adventure_params
         params.require(:adventure).permit(:title, :photo, :location, :hashtags, :description, :likes)
     end

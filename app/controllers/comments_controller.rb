@@ -27,3 +27,7 @@ class CommentsController < ApplicationController
     #not sure about the params on this one^ 
 
 end
+
+
+
+

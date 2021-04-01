@@ -29,7 +29,8 @@ class AdventuresController < ApplicationController
 
     private
     def adventure_params
-        params.require(:adventure).permit(:title, :photo, :location, :hashtags, :description, :likes)
+        params.permit(:title, :photo, :location, :hashtags, :description, :likes)
     end
+        
 
 end

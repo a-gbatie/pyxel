@@ -1,4 +1,4 @@
 class Adventure < ApplicationRecord
-    has_many :comments
+    has_many :comments, dependent: :delete_all
     has_many :users, through: :comments
 end
